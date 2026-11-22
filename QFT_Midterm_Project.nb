@@ -1,0 +1,1634 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[     67002,       1613]
+NotebookOptionsPosition[     56797,       1440]
+NotebookOutlinePosition[     57307,       1458]
+CellTagsIndexPosition[     57264,       1455]
+WindowTitle->QFT Midterm Project \:2014 Erfan Najafian
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[TextData[StyleBox["QFT Midterm Project \[LongDash] Scalar Field \
+Renormalization",
+ FontVariations->{"Underline"->True}]], "Title",ExpressionUUID->"38c3a21e-\
+bbb6-d84c-bc2d-b293e4440488"],
+
+Cell[TextData[StyleBox["From one loop to the critical isotherm of water",
+ FontWeight->"Bold",
+ FontVariations->{"Underline"->True}]], "Subtitle",ExpressionUUID->"5d6d309c-\
+b2b7-814f-943b-b41e4385b02a"],
+
+Cell[TextData[{
+ StyleBox["Erfan Najafian",
+  FontWeight->"Bold",
+  FontVariations->{"Underline"->True}],
+ "\n"
+}], "Text",
+ CellChangeTimes->{{4.004317675769459*^9, 
+  4.0043176807247543`*^9}},ExpressionUUID->"23d7cb8f-d467-5246-a99d-\
+69dca3164cda"],
+
+Cell[CellGroupData[{
+
+Cell["", "Section",
+ CellChangeTimes->{{4.0043177263539276`*^9, 
+  4.0043177275054493`*^9}},ExpressionUUID->"c519c069-7c9d-9143-8550-\
+87149f752a58"],
+
+Cell["", "Text",
+ CellChangeTimes->{
+  4.0043177248891716`*^9},ExpressionUUID->"f1fa081b-ffca-5749-864d-\
+5d078397047a"],
+
+Cell["", "Text",
+ CellChangeTimes->{
+  4.0043177234384136`*^9, {4.0043177535278378`*^9, 
+   4.0043177565007496`*^9}},ExpressionUUID->"f7d73e52-ff3c-724d-965c-\
+3a51184dc366"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1. Part 1 \[LongDash] One loop and two regulators", "Section",
+ CellChangeTimes->{{4.0043177302603817`*^9, 
+  4.004317730977022*^9}},ExpressionUUID->"5fd7417e-0bdc-1648-b396-\
+f747aca4fcff"],
+
+Cell[CellGroupData[{
+
+Cell["1.1 Generate and read the one-loop diagrams", "Subsection",ExpressionUUID->"e9dffefd-286a-8f43-811d-cf844e0b095e"],
+
+Cell["\<\
+Question | Generate all one-loop 1PI two-point and four-point diagrams for \
+the real-scalar \[CapitalPhi]^4 model. Show CreateTopologies, InsertFields, \
+Paint, CreateFeynAmp and FCFAConvert. Label external momenta, determine \
+symmetry factors, identify s/t/u channels, and give converted integrands and \
+ToPaVe forms.
+Derivation | The two-point 1PI graph is the tadpole with symmetry factor 1/2. \
+The four-point 1PI graphs are the three bubble pairings, with symmetry factor \
+1/2 in each channel. With all external momenta incoming, P12=p1+p2, P13=p1+p3 \
+and P14=p1+p4. In Euclidean conventions the loop corrections are \
+\[CapitalDelta]\[CapitalGamma]^(2)=\[Lambda]T/2 and \[CapitalDelta]\
+\[CapitalGamma]^(4)=-(\[Lambda]^2/2)[B(P12)+B(P13)+B(P14)].
+Check | Verify the generated graph counts and symmetry factors from the \
+FeynArts output. Check momentum conservation p1+p2+p3+p4=0 and compare the \
+scalar denominators with T and B(P).\
+\>", "Text",
+ CellChangeTimes->{{4.0043178613333282`*^9, 
+  4.0043178670486584`*^9}},ExpressionUUID->"be079595-c887-b34e-a84c-\
+edc4d7a9e04e"],
+
+Cell[CellGroupData[{
+
+Cell["FeynArts/FeynCalc package setup and reproducible Phi4 model", \
+"Subsubsection",ExpressionUUID->"8255a39e-0a81-d940-ab11-cedc36a7078b"],
+
+Cell["\:067e", "Text",
+ CellChangeTimes->{{4.0043178883485184`*^9, 4.004317889561661*^9}, 
+   4.0043180353348103`*^9},ExpressionUUID->"301bf285-5610-8b4c-b8ae-\
+4007a5044835"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FeynArts`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Needs", "[", "\"\<FeynCalc`\>\"", "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"$FeynArtsModel", " ", "=", " ", "\"\<Phi4\>\""}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"faFile", " ", "=", " ", 
+   RowBox[{"FindFile", "[", "\"\<FeynArts`\>\"", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"faDir", " ", "=", " ", 
+   RowBox[{"DirectoryName", "[", "faFile", "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"modelDir", " ", "=", " ", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{"faDir", ",", " ", "\"\<Models\>\""}], "}"}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"phi4File", " ", "=", " ", 
+   RowBox[{"FileNameJoin", "[", 
+    RowBox[{"{", 
+     RowBox[{"modelDir", ",", " ", "\"\<Phi4.mod\>\""}], "}"}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<FeynArts version: \>\"", ",", " ", "$FeynArtsVersion"}], 
+   "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Phi4 model file exists: \>\"", ",", " ", 
+    RowBox[{"FileExistsQ", "[", "phi4File", "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Model path: \>\"", ",", " ", "modelDir"}], "]"}], 
+  ";"}]}], "Input",ExpressionUUID->"f3b92ec7-4fd9-b646-b4d3-54a088a01807"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Two-point tadpole: topology, insertion, diagram, amplitude", \
+"Subsubsection",ExpressionUUID->"9d40d9b6-b461-cf4d-b51c-e6275ebc8464"],
+
+Cell["\<\
+The exclusion of Tadpoles must NOT be used here: the one-loop tadpole is the \
+desired 1PI two-point graph.\
+\>", "Text",ExpressionUUID->"d9fa85fa-775b-e94f-9049-5a4e72caa141"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"top2", " ", "=", " ", 
+   RowBox[{"CreateTopologies", "[", 
+    RowBox[{"1", ",", " ", 
+     RowBox[{"1", " ", "->", " ", "1"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ins2", " ", "=", " ", 
+   RowBox[{"InsertFields", "[", 
+    RowBox[{"top2", ",", " ", 
+     RowBox[{
+      RowBox[{"S", "[", "1", "]"}], " ", "->", " ", 
+      RowBox[{"S", "[", "1", "]"}]}], ",", " ", 
+     RowBox[{"Model", " ", "->", " ", "$FeynArtsModel"}], ",", " ", 
+     RowBox[{"GenericModel", " ", "->", " ", "\"\<Lorentz\>\""}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Two-point topologies: \>\"", ",", " ", 
+    RowBox[{"Length", "[", "top2", "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Inserted two-point diagrams: \>\"", ",", " ", 
+    RowBox[{"Length", "[", "ins2", "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Paint", "[", 
+   RowBox[{"ins2", ",", " ", 
+    RowBox[{"Numbering", " ", "->", " ", "Simple"}], ",", " ", 
+    RowBox[{"SheetHeader", " ", "->", " ", "None"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"amp2", " ", "=", " ", 
+   RowBox[{"CreateFeynAmp", "[", 
+    RowBox[{"ins2", ",", " ", 
+     RowBox[{"Truncated", " ", "->", " ", "True"}], ",", " ", 
+     RowBox[{"PreFactor", " ", "->", " ", "1"}]}], "]"}]}], 
+  ";"}], "\n", "amp2"}], "Input",ExpressionUUID->"ed9a2282-9ab4-5d44-9c08-\
+250c9cd11fe4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Four-point bubbles: s, t and u channels", "Subsubsection",ExpressionUUID->"4b58b612-15b9-084c-a81f-ca84f2c1b570"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"top4", " ", "=", " ", 
+   RowBox[{"CreateTopologies", "[", 
+    RowBox[{"1", ",", " ", 
+     RowBox[{"2", " ", "->", " ", "2"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ins4", " ", "=", " ", 
+   RowBox[{"InsertFields", "[", 
+    RowBox[{"top4", ",", " ", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"S", "[", "1", "]"}], ",", " ", 
+        RowBox[{"S", "[", "1", "]"}]}], "}"}], " ", "->", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"S", "[", "1", "]"}], ",", " ", 
+        RowBox[{"S", "[", "1", "]"}]}], "}"}]}], ",", " ", 
+     RowBox[{"Model", " ", "->", " ", "$FeynArtsModel"}], ",", " ", 
+     RowBox[{"GenericModel", " ", "->", " ", "\"\<Lorentz\>\""}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Four-point topologies: \>\"", ",", " ", 
+    RowBox[{"Length", "[", "top4", "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Print", "[", 
+   RowBox[{"\"\<Inserted four-point diagrams: \>\"", ",", " ", 
+    RowBox[{"Length", "[", "ins4", "]"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Paint", "[", 
+   RowBox[{"ins4", ",", " ", 
+    RowBox[{"Numbering", " ", "->", " ", "Simple"}], ",", " ", 
+    RowBox[{"SheetHeader", " ", "->", " ", "None"}], ",", " ", 
+    RowBox[{"ColumnsXRows", " ", "->", " ", 
+     RowBox[{"{", 
+      RowBox[{"3", ",", " ", "1"}], "}"}]}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"amp4", " ", "=", " ", 
+   RowBox[{"CreateFeynAmp", "[", 
+    RowBox[{"ins4", ",", " ", 
+     RowBox[{"Truncated", " ", "->", " ", "True"}], ",", " ", 
+     RowBox[{"PreFactor", " ", "->", " ", "1"}]}], "]"}]}], 
+  ";"}], "\n", "amp4"}], "Input",ExpressionUUID->"1956880e-6640-b242-ba43-\
+eafeae5900bd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Momentum routing and FeynCalc conversion", "Subsubsection",ExpressionUUID->"95730fc0-6244-204a-8806-fc0dc1ebcd59"],
+
+Cell["\<\
+For FeynArts amplitudes, the two-point process is represented as S(p1) -> \
+S(k1); impose k1=p1 after conversion, so the loop correction depends on the \
+external Euclidean p\.b2. For the four-point process use p1,p2 incoming and \
+p3,p4 outgoing, with p1+p2=p3+p4. The channel momenta are P_s=p1+p2, \
+P_t=p1-p3 and P_u=p1-p4; their squared Euclidean invariants label the three \
+bubble integrals. Keep this routing distinct from the all-incoming \
+convention, where outgoing momenta are replaced by their negatives.\
+\>", "Text",ExpressionUUID->"aa408de3-ca54-a84c-8404-863ef6ed60f1"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"Conversion", " ", 
+    RowBox[{"cell", ":", " ", 
+     RowBox[{
+     "evaluate", " ", "only", " ", "after", " ", "confirming", " ", "the", " ",
+       "installed", " ", 
+      RowBox[{"FeynCalc", "/", "FeynArts"}], " ", 
+      RowBox[{"interface", ".", "\n", "   ", "Preserve"}], " ", "the", " ", 
+      "raw", " ", "FeynArts", " ", "amplitudes", " ", "above", " ", "as", " ",
+       "the", " ", "primary", " ", "diagram", " ", 
+      RowBox[{"evidence", "."}]}]}]}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"amp2FC", " ", "=", " ", 
+     RowBox[{"FCFAConvert", "[", 
+      RowBox[{"amp2", ",", "\n", "  ", 
+       RowBox[{"IncomingMomenta", " ", "->", " ", 
+        RowBox[{"{", "p", "}"}]}], ",", " ", 
+       RowBox[{"OutgoingMomenta", " ", "->", " ", 
+        RowBox[{"{", "p", "}"}]}], ",", "\n", "  ", 
+       RowBox[{"LoopMomenta", " ", "->", " ", 
+        RowBox[{"{", "k", "}"}]}], ",", " ", 
+       RowBox[{"ChangeDimension", " ", "->", " ", 
+        RowBox[{"4", " ", "-", " ", 
+         RowBox[{"2", " ", "epsFC"}]}]}], ",", "\n", "  ", 
+       RowBox[{"UndoChiralSplittings", " ", "->", " ", "True"}], ",", " ", 
+       RowBox[{"SMP", " ", "->", " ", "True"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"amp4FC", " ", "=", " ", 
+     RowBox[{"FCFAConvert", "[", 
+      RowBox[{"amp4", ",", "\n", "  ", 
+       RowBox[{"IncomingMomenta", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"p1", ",", " ", "p2"}], "}"}]}], ",", " ", 
+       RowBox[{"OutgoingMomenta", " ", "->", " ", 
+        RowBox[{"{", 
+         RowBox[{"p3", ",", " ", "p4"}], "}"}]}], ",", "\n", "  ", 
+       RowBox[{"LoopMomenta", " ", "->", " ", 
+        RowBox[{"{", "k", "}"}]}], ",", " ", 
+       RowBox[{"ChangeDimension", " ", "->", " ", 
+        RowBox[{"4", " ", "-", " ", 
+         RowBox[{"2", " ", "epsFC"}]}]}], ",", "\n", "  ", 
+       RowBox[{"UndoChiralSplittings", " ", "->", " ", "True"}], ",", " ", 
+       RowBox[{"SMP", " ", "->", " ", "True"}]}], "]"}]}], ";"}], "\n", 
+   RowBox[{"{", 
+    RowBox[{"amp2FC", ",", " ", "amp4FC"}], "}"}]}]}]], "Input",ExpressionUUID\
+->"3578c3f1-0299-5646-b812-1919a955135b"],
+
+Cell["\<\
+The scalar tadpole denominator is 1/(k^2+m^2). A channel bubble has \
+denominator 1/[(k^2+m^2)((k+P)^2+m^2)]. After Wick rotation, the Euclidean \
+measure is \[Integral]d^dk_E/(2\[Pi])^d. In a Minkowski-to-Euclidean \
+conversion, state the propagator and vertex i-factors before removing the \
+overall amplitude phase. The scalar integrals are represented by A0/Tadpole \
+and B0/Bubble functions; ToPaVe output and normalization must be inspected \
+rather than assumed.\
+\>", "Text",ExpressionUUID->"098c432a-58b3-834a-a6b1-d0a178202c47"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Apply", " ", "ToPaVe", " ", "to", " ", "the", " ", "converted", " ", 
+    "scalar", " ", "loop", " ", "expressions", " ", "after", " ", "tensor", " ", 
+    RowBox[{"reduction", ".", "\n", "   ", "The"}], " ", "exact", " ", 
+    "expression", " ", "passed", " ", "to", " ", "ToPaVe", " ", "depends", " ",
+     "on", " ", "FCFAConvert", " ", 
+    RowBox[{"output", "."}]}], " ", "*)"}], "\n", 
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{"toPaVe2", " ", "=", " ", 
+     RowBox[{"ToPaVe", "[", "amp2FC", "]"}]}], ";", "\n", "   ", 
+    RowBox[{"toPaVe4", " ", "=", " ", 
+     RowBox[{"ToPaVe", "[", "amp4FC", "]"}]}], ";"}], " ", "*)"}]}]], "Input",\
+ExpressionUUID->"216f1f4e-4802-5e43-a830-1c2273eac083"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Diagrammatic consistency check", "Subsubsection",ExpressionUUID->"25f18535-0d1f-6b49-ba7a-76598f0235a3"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "Algebraic", " ", "bookkeeping", " ", "checks", " ", "for", " ", "the", " ",
+     "expected", " ", "diagrammatic", " ", 
+    RowBox[{"coefficients", "."}]}], " ", "*)"}], "\n", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"tadpoleSymmetryFactor", " ", "=", " ", 
+     RowBox[{"1", "/", "2"}]}], ";"}], "\n", " ", 
+   RowBox[{
+    RowBox[{"bubbleSymmetryFactors", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"1", "/", "2"}], ",", " ", 
+       RowBox[{"1", "/", "2"}], ",", " ", 
+       RowBox[{"1", "/", "2"}]}], "}"}]}], ";"}], "\n", " ", 
+   RowBox[{
+    RowBox[{"channelLabels", " ", "=", " ", 
+     RowBox[{"{", 
+      RowBox[{"\"\<s: (p1+p2)^2\>\"", ",", " ", "\"\<t: (p1-p3)^2\>\"", ",", 
+       " ", "\"\<u: (p1-p4)^2\>\""}], "}"}]}], ";"}], "\n", " ", 
+   RowBox[{"{", 
+    RowBox[{
+    "tadpoleSymmetryFactor", ",", " ", "bubbleSymmetryFactors", ",", " ", 
+     "channelLabels"}], "}"}]}]}]], "Input",ExpressionUUID->"ce592fec-6d78-\
+904c-be52-a8001622f403"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.2 Evaluate the tadpole and bubble", "Subsection",ExpressionUUID->"150b7e4f-9252-6840-9aa4-93cba08732f2"],
+
+Cell["\<\
+Question | For |k|<\[CapitalLambda] calculate T and B(0) exactly in the sharp \
+4D cutoff, expand through \[CapitalLambda]^-2, independently calculate the DR \
+Laurent expansions through \[CurlyEpsilon]^0, identify power/log divergences \
+and poles, and verify B(0)=-\[PartialD]T/\[PartialD]m^2 in both schemes.
+Derivation | The radial 4D measure is d^4k/(2\[Pi])^4 = k^3 dk/(8\[Pi]^2). \
+Integrating the tadpole and zero-momentum bubble gives the exact expressions \
+below. In DR use d=4-\[CurlyEpsilon] and one \[Mu]^\[CurlyEpsilon] per loop.
+Check | Differentiate T with respect to m\.b2 in each scheme. Compare the \
+coefficients of the cutoff logarithm and DR pole, keeping the assignment's \
+\[CurlyEpsilon] convention distinct from \[CurlyEpsilon]_FC.
+Anchor IDs | A-12a sharp-cutoff radial measure; A-12b DR master integral; \
+Fields Notes \[Section]\[Section]12\[Dash]13. Exact equation/page references \
+open.
+Status | derived; symbolic checks in AR-05 run by student; exact textbook \
+anchors open.\
+\>", "Text",ExpressionUUID->"2b42b23c-7b90-b140-866d-3c1dc40412ca"],
+
+Cell[CellGroupData[{
+
+Cell["Sharp 4D cutoff \[LongDash] exact results and asymptotic expansion", \
+"Subsubsection",ExpressionUUID->"a16b3203-d3c7-b847-9416-e6d8780b9e2a"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"tCut", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"cut", "^", "2"}], " ", "-", " ", 
+      RowBox[{"m2", " ", 
+       RowBox[{"Log", "[", 
+        RowBox[{"1", " ", "+", " ", 
+         RowBox[{
+          RowBox[{"cut", "^", "2"}], "/", "m2"}]}], "]"}]}]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{"16", " ", 
+      RowBox[{"Pi", "^", "2"}]}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"bCut", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Log", "[", 
+        RowBox[{"1", " ", "+", " ", 
+         RowBox[{
+          RowBox[{"cut", "^", "2"}], "/", "m2"}]}], "]"}], " ", "-", " ", 
+       RowBox[{
+        RowBox[{"cut", "^", "2"}], "/", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"cut", "^", "2"}], " ", "+", " ", "m2"}], ")"}]}]}], ")"}], 
+     "/", 
+     RowBox[{"(", 
+      RowBox[{"16", " ", 
+       RowBox[{"Pi", "^", "2"}]}], ")"}]}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"tCutSeries", " ", "=", " ", 
+    RowBox[{"Series", "[", 
+     RowBox[{"tCut", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"cut", ",", " ", "Infinity", ",", " ", "2"}], "}"}]}], "]"}]}],
+    ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"bCutSeries", " ", "=", " ", 
+    RowBox[{"Series", "[", 
+     RowBox[{"bCut", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"cut", ",", " ", "Infinity", ",", " ", "2"}], "}"}]}], "]"}]}],
+    ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{
+   "tCut", ",", " ", "bCut", ",", " ", "tCutSeries", ",", " ", "bCutSeries"}],
+    "}"}]}]}], "Input",ExpressionUUID->"4dac0bc0-eb1b-b84a-a082-63865906b727"],
+
+Cell["\<\
+Thus T(\[CapitalLambda])=(1/16\[Pi]\.b2)[\[CapitalLambda]\.b2-m\.b2 ln(1+\
+\[CapitalLambda]\.b2/m\.b2)] and B(0;\[CapitalLambda])=(1/16\[Pi]\.b2)[ln(1+\
+\[CapitalLambda]\.b2/m\.b2)-\[CapitalLambda]\.b2/(\[CapitalLambda]\.b2+m\.b2)]\
+. The tadpole contains a quadratic power divergence and a logarithm; the \
+bubble is logarithmically divergent.\
+\>", "Text",ExpressionUUID->"c7c973df-a46f-1d4a-b6ff-cea6d8984c26"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Dimensional regularization \[LongDash] exact expressions and Laurent \
+expansions\
+\>", "Subsubsection",ExpressionUUID->"00b6e804-1060-a648-97e7-2c542d4bc457"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"tDR", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"mu", "^", "eps"}], "/", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"4", " ", "Pi"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"2", " ", "-", " ", 
+        RowBox[{"eps", "/", "2"}]}], ")"}]}]}], " ", 
+    RowBox[{"m2", "^", 
+     RowBox[{"(", 
+      RowBox[{"1", " ", "-", " ", 
+       RowBox[{"eps", "/", "2"}]}], ")"}]}], " ", 
+    RowBox[{"Gamma", "[", 
+     RowBox[{
+      RowBox[{"-", "1"}], " ", "+", " ", 
+      RowBox[{"eps", "/", "2"}]}], "]"}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"bDR", " ", "=", " ", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"mu", "^", "eps"}], "/", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"4", " ", "Pi"}], ")"}], "^", 
+       RowBox[{"(", 
+        RowBox[{"2", " ", "-", " ", 
+         RowBox[{"eps", "/", "2"}]}], ")"}]}]}], " ", 
+     RowBox[{"m2", "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"-", "eps"}], "/", "2"}], ")"}]}], " ", 
+     RowBox[{"Gamma", "[", 
+      RowBox[{"eps", "/", "2"}], "]"}]}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"tDRSeries", " ", "=", " ", 
+    RowBox[{"Series", "[", 
+     RowBox[{"tDR", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"eps", ",", " ", "0", ",", " ", "0"}], "}"}]}], "]"}]}], 
+   ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"bDRSeries", " ", "=", " ", 
+    RowBox[{"Series", "[", 
+     RowBox[{"bDR", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"eps", ",", " ", "0", ",", " ", "0"}], "}"}]}], "]"}]}], 
+   ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"tDRSeries", ",", " ", "bDRSeries"}], "}"}]}]}], "Input",Expression\
+UUID->"f6656a94-a8bd-7d44-9ab6-062ce11f6d54"],
+
+Cell["\<\
+With the convention used here, T_DR = m\.b2/(16\[Pi]\.b2)[-2/\[CurlyEpsilon] \
++ \[Gamma]_E - 1 - ln(4\[Pi]\[Mu]\.b2/m\.b2)] + O(\[CurlyEpsilon]), and \
+B_DR(0)=1/(16\[Pi]\.b2)[2/\[CurlyEpsilon] - \[Gamma]_E + ln(4\[Pi]\[Mu]\.b2/m\
+\.b2)] + O(\[CurlyEpsilon]). The pole is logarithmic in the bubble; the \
+quadratic cutoff divergence has no direct pole counterpart in dimensional \
+regularization.\
+\>", "Text",ExpressionUUID->"353c65cc-c9a7-f843-9611-b110ce19c3dd"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Identity check in both regulators", "Subsubsection",ExpressionUUID->"5c8bb75e-6427-f542-bd43-866073d952d4"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"checkCutoffIdentity", " ", "=", " ", 
+   RowBox[{"FullSimplify", "[", 
+    RowBox[{"bCut", " ", "+", " ", 
+     RowBox[{"D", "[", 
+      RowBox[{"tCut", ",", " ", "m2"}], "]"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"checkDRIdentity", " ", "=", " ", 
+    RowBox[{"FullSimplify", "[", 
+     RowBox[{"bDR", " ", "+", " ", 
+      RowBox[{"D", "[", 
+       RowBox[{"tDR", ",", " ", "m2"}], "]"}]}], "]"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"checkCutoffIdentity", ",", " ", "checkDRIdentity"}], 
+   "}"}]}]}], "Input",ExpressionUUID->"06ccba4f-1a68-5b48-8659-7db86a43925a"],
+
+Cell["\<\
+Expected result: {0,0}. The identity is a useful independent check of \
+normalization and signs.\
+\>", "Text",ExpressionUUID->"90b2c1df-4e9e-1d47-b87e-a9cbb7f6d93c"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.3 Fix counterterms and compare regulators", "Subsection",ExpressionUUID->"c38687b7-ac41-3d49-a293-6ed8f96848cf"],
+
+Cell["\<\
+Question | Impose \[CapitalGamma]^(2)(0)=m\.b2, \
+\[PartialD]\[CapitalGamma]^(2)/\[PartialD]p\.b2|0=1 and \
+\[CapitalGamma]^(4)(0)=\[Lambda] in each regulator. Derive \[Delta]Z\
+\[CurlyPhi], \[Delta]m\.b2 and \[Delta]\[Lambda]. Compare B(P)-B(0) and its \
+slope at P\.b2=0 as the regulators are removed. For a sharp cutoff form the \
+convergent difference and take \[CapitalLambda]\[RightArrow]\[Infinity] \
+before shifting loop momentum.
+Derivation | From \[CapitalGamma]^(2)=p\.b2+m\.b2+\[Delta]Z\[CurlyPhi] p\.b2+\
+\[Delta]m\.b2+(\[Lambda]/2)T, the conditions give \[Delta]m\.b2=-\[Lambda]T/2 \
+and \[Delta]Z\[CurlyPhi]=0 at one loop. From \[CapitalGamma]^(4)=\[Lambda]+\
+\[Delta]\[Lambda]-(\[Lambda]\.b2/2)\[CapitalSigma]_channels B(P), the \
+zero-momentum condition gives \[Delta]\[Lambda]=3\[Lambda]\.b2B(0)/2.
+Check | Verify all three subtraction conditions by substitution. In DR the \
+finite bubble difference is expressible with a Feynman parameter; its \
+low-momentum slope is -1/(96\[Pi]\.b2m\.b2). The hard-cutoff finite-momentum \
+difference must be formed before shifting the loop momentum.
+Anchor IDs | A-13a MOM conditions; A-13b one-loop counterterms; Fields Notes \
+\[Section]\[Section]12\[Dash]13. Exact equation/page references open.
+Status | counterterms derived; DR finite difference checked; hard-cutoff \
+finite-momentum limit open.\
+\>", "Text",ExpressionUUID->"57347e36-6db2-3d46-9f67-0fd1dd9a9979"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"deltaM2", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"-", "lam"}], " ", 
+    RowBox[{"tCut", "/", "2"}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"deltaZphi1", " ", "=", " ", "0"}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"deltaLam", " ", "=", " ", 
+    RowBox[{"3", " ", 
+     RowBox[{"lam", "^", "2"}], " ", 
+     RowBox[{"bCut", "/", "2"}]}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"deltaM2", ",", " ", "deltaZphi1", ",", " ", "deltaLam"}], 
+   "}"}]}]}], "Input",ExpressionUUID->"820f97fe-9b74-b74a-8091-6728f965c8d6"],
+
+Cell[CellGroupData[{
+
+Cell["Finite bubble difference in DR", "Subsubsection",ExpressionUUID->"34ec93f3-219b-4049-98f6-c4739700ba8b"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"bDiff", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"-", 
+     RowBox[{"(", 
+      RowBox[{"1", "/", 
+       RowBox[{"(", 
+        RowBox[{"16", " ", 
+         RowBox[{"Pi", "^", "2"}]}], ")"}]}], ")"}]}], " ", 
+    RowBox[{"Integrate", "[", 
+     RowBox[{
+      RowBox[{"Log", "[", 
+       RowBox[{"1", " ", "+", " ", 
+        RowBox[{"x", " ", 
+         RowBox[{"(", 
+          RowBox[{"1", " ", "-", " ", "x"}], ")"}], " ", 
+         RowBox[{"q2", "/", "m2"}]}]}], "]"}], ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"x", ",", " ", "0", ",", " ", "1"}], "}"}], ",", " ", 
+      RowBox[{"Assumptions", " ", "->", " ", 
+       RowBox[{
+        RowBox[{"m2", " ", ">", " ", "0"}], " ", "&&", " ", 
+        RowBox[{"q2", " ", ">=", " ", "0"}]}]}]}], "]"}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"bDiffSlope", " ", "=", " ", 
+    RowBox[{"FullSimplify", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"D", "[", 
+        RowBox[{"bDiff", ",", " ", "q2"}], "]"}], " ", "/.", " ", 
+       RowBox[{"q2", " ", "->", " ", "0"}]}], ",", " ", 
+      RowBox[{"Assumptions", " ", "->", " ", 
+       RowBox[{"m2", " ", ">", " ", "0"}]}]}], "]"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"bDiff", ",", " ", "bDiffSlope"}], "}"}]}]}], "Input",ExpressionUUI\
+D->"5be8f3ca-1fdb-df4d-b428-3be6df984f7c"],
+
+Cell["\<\
+The slope is \[PartialD][B(P)-B(0)]/\[PartialD]P\.b2|0 = \
+-1/(96\[Pi]\.b2m\.b2). The finite difference is UV convergent. For a sharp \
+cutoff do not shift the integration variable in either divergent integral \
+separately; take the cutoff limit of the convergent difference first.\
+\>", "Text",ExpressionUUID->"bf7197ef-4027-8d41-9cc2-5e6570c76253"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Subtraction-condition check", "Subsubsection",ExpressionUUID->"bba345e3-a216-ef43-a8aa-80cee9178950"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+    RowBox[{
+    "Symbolic", " ", "substitution", " ", "into", " ", "the", " ", "stated", " ",
+      "one"}], "-", 
+    RowBox[{"loop", " ", "\[CapitalGamma]", " ", 
+     RowBox[{"functions", "."}]}]}], " ", "*)"}], "\n", " ", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"gamma2At0", " ", "=", " ", 
+     RowBox[{"m2", " ", "+", " ", "deltaM2", " ", "+", " ", 
+      RowBox[{"lam", " ", 
+       RowBox[{"tCut", "/", "2"}]}]}]}], ";"}], "\n", " ", 
+   RowBox[{
+    RowBox[{"gamma2Slope", " ", "=", " ", 
+     RowBox[{"1", " ", "+", " ", "deltaZphi1"}]}], ";"}], "\n", " ", 
+   RowBox[{
+    RowBox[{"gamma4At0", " ", "=", " ", 
+     RowBox[{"lam", " ", "+", " ", "deltaLam", " ", "-", " ", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"lam", "^", "2"}], "/", "2"}], ")"}], " ", 
+       RowBox[{"(", 
+        RowBox[{"3", " ", "bCut"}], ")"}]}]}]}], ";"}], "\n", " ", 
+   RowBox[{"FullSimplify", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"gamma2At0", " ", "==", " ", "m2"}], ",", " ", 
+      RowBox[{"gamma2Slope", " ", "==", " ", "1"}], ",", " ", 
+      RowBox[{"gamma4At0", " ", "==", " ", "lam"}]}], "}"}], 
+    "]"}]}]}]], "Input",ExpressionUUID->"49d47eec-0e87-c740-979a-\
+286c85f224ef"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["1.4 Derive the beta function and fixed point", "Subsection",ExpressionUUID->"6becb222-4f10-a840-bfdd-106430025474"],
+
+Cell["\<\
+Question | Use DR pole counterterms to derive the MS beta function through g\
+\.b2 and the nonzero fixed point through \[CurlyEpsilon]. Show the one-loop \
+field counterterm and explain why the tadpole cannot change the momentum \
+exponent. Distinguish MS from the finite MOM conditions in 1.3.
+Derivation | With g0=\[Mu]^\[CurlyEpsilon] g Zg and \
+Zg=1+3g/\[CurlyEpsilon]+O(g\.b2), differentiating at fixed bare coupling \
+gives \[Beta](g)=-\[CurlyEpsilon]g+3g\.b2+O(g\.b3). The non-Gaussian zero is \
+g*=\[CurlyEpsilon]/3+O(\[CurlyEpsilon]\.b2). At one loop the tadpole is \
+momentum independent, hence \[Delta]Z\[CurlyPhi]^(1)=0 and it cannot \
+renormalize the p\.b2 coefficient.
+Check | Substitute g* into \[Beta] and verify the zero to the retained order. \
+Keep MS pole subtraction conceptually separate from the finite MOM conditions \
+of 1.3.
+Anchor IDs | A-14a bare/renormalized coupling; A-14b beta definition; Fields \
+Notes \[Section]\[Section]20\[Dash]21 (RG/fixed point discussion); exact \
+equation/page references open.
+Status | one-loop derivation and symbolic check completed; textbook anchors \
+open.\
+\>", "Text",ExpressionUUID->"adab8108-877d-2648-917c-59eb9fa437d1"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"betaG", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"-", "eps"}], " ", "g"}], " ", "+", " ", 
+    RowBox[{"3", " ", 
+     RowBox[{"g", "^", "2"}]}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"gStar", " ", "=", " ", 
+    RowBox[{"eps", "/", "3"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"betaG", ",", " ", 
+    RowBox[{"FullSimplify", "[", 
+     RowBox[{"betaG", " ", "/.", " ", 
+      RowBox[{"g", " ", "->", " ", "gStar"}]}], "]"}], ",", " ", 
+    RowBox[{
+     RowBox[{"D", "[", 
+      RowBox[{"betaG", ",", " ", "g"}], "]"}], " ", "/.", " ", 
+     RowBox[{"g", " ", "->", " ", "gStar"}]}]}], "}"}]}]}], "Input",Expression\
+UUID->"f1a60057-9f49-c142-bae1-9f41ad90055c"],
+
+Cell["\<\
+At one loop Z\[CurlyPhi]=1+O(g\.b2). The derivative \[Beta]'(g*)=\
+\[CurlyEpsilon] in this convention. This is the Callan\[Dash]Symanzik beta \
+function; do not confuse its sign with an infrared Wilsonian flow parameter \
+defined as t=ln b.\
+\>", "Text",ExpressionUUID->"d0925f1f-dfca-0e40-bb58-fa6b378f81a3"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2. Part 2 \[LongDash] Critical exponents and water", "Section",ExpressionUUID->"1360e848-5256-924e-a1af-c7510451aebe"],
+
+Cell[CellGroupData[{
+
+Cell["2.1 Calculate the two-loop two-point function", "Subsection",ExpressionUUID->"79fc8aad-a5fa-8b4f-9d96-10d588ccc5ba"],
+
+Cell["\<\
+Question | Generate all two-loop 1PI two-point diagrams with FeynArts and \
+convert them with FeynCalc. Identify p-dependent graphs and derive the sunset \
+symmetry factor. Evaluate H(p) by two successive massless one-loop \
+convolutions, give the gamma-function expression, Laurent expansion and \
+p\.b2/\[CurlyEpsilon] coefficient. Account for four-point subdivergences and \
+show why their counterterm insertions do not affect the p\.b2 pole.
+Derivation | At criticality use massless propagators and p\.b2>0. The sunset \
+is the momentum-dependent two-loop 1PI graph and has symmetry factor 1/6. The \
+massless convolution identity is used twice. The exact result to be checked \
+is H(p)=\[Mu]^(2\[CurlyEpsilon])(p\.b2)^(1-\[CurlyEpsilon])/(4\[Pi])^(4-\
+\[CurlyEpsilon]) \[Times] \[CapitalGamma](1-\[CurlyEpsilon]/2)^3 \
+\[CapitalGamma](\[CurlyEpsilon]-1)/\[CapitalGamma](3-3\[CurlyEpsilon]/2). Its \
+gamma ratio begins \
+-1/(2\[CurlyEpsilon])+\[Gamma]_E/2-13/8+O(\[CurlyEpsilon]); therefore H has p\
+\.b2 pole -p\.b2/[2(4\[Pi])^4 \[CurlyEpsilon]].
+Check | Independently reproduce the expression by sequential convolution in \
+Mathematica. Verify the p\.b2 pole after expanding the full prefactor, not \
+just the gamma ratio. Separate UV and IR poles in scaleless subgraphs before \
+claiming cancellation; a scaleless tadpole set to zero does not by itself \
+prove absence of a UV subdivergence.
+Anchor IDs | A-21a massless convolution; A-21b sunset integral; Fields Notes \
+\[Section]15 and \[Section]\[Section]20\[Dash]21. Exact equation/page \
+references open.
+Status | sunset pole analytically derived; finite prefactor/log and complete \
+subdivergence bookkeeping require independent verification.\
+\>", "Text",ExpressionUUID->"4605deab-0232-c944-9ea1-f3bd5cac5084"],
+
+Cell[CellGroupData[{
+
+Cell["FeynArts generation of two-loop two-point topologies", "Subsubsection",ExpressionUUID->"ae640021-5d3f-eb41-998c-38466aa5c0be"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"top2L", " ", "=", " ", 
+   RowBox[{"CreateTopologies", "[", 
+    RowBox[{"2", ",", " ", 
+     RowBox[{"1", " ", "->", " ", "1"}]}], "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"ins2L", " ", "=", " ", 
+   RowBox[{"InsertFields", "[", 
+    RowBox[{"top2L", ",", " ", 
+     RowBox[{
+      RowBox[{"S", "[", "1", "]"}], " ", "->", " ", 
+      RowBox[{"S", "[", "1", "]"}]}], ",", " ", 
+     RowBox[{"Model", " ", "->", " ", "$FeynArtsModel"}], ",", " ", 
+     RowBox[{"GenericModel", " ", "->", " ", "\"\<Lorentz\>\""}]}], "]"}]}], 
+  ";"}], "\n", 
+ RowBox[{
+  RowBox[{"Paint", "[", 
+   RowBox[{"ins2L", ",", " ", 
+    RowBox[{"Numbering", " ", "->", " ", "True"}], ",", " ", 
+    RowBox[{"SheetHeader", " ", "->", " ", "None"}]}], "]"}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"amp2L", " ", "=", " ", 
+   RowBox[{"CreateFeynAmp", "[", "ins2L", "]"}]}], 
+  ";"}], "\n", "amp2L"}], "Input",ExpressionUUID->"3c727dc1-2a7e-5847-80cb-\
+c8a7205fea9f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Convert using two independent loop momenta", "Subsubsection",ExpressionUUID->"8a9737e1-2e65-7045-8676-4a039cc2f722"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"amp2LFC", " ", "=", " ", 
+   RowBox[{"FCFAConvert", "[", 
+    RowBox[{"amp2L", ",", "\n", "  ", 
+     RowBox[{"IncomingMomenta", " ", "->", " ", 
+      RowBox[{"{", "p", "}"}]}], ",", " ", 
+     RowBox[{"OutgoingMomenta", " ", "->", " ", 
+      RowBox[{"{", "p", "}"}]}], ",", "\n", "  ", 
+     RowBox[{"LoopMomenta", " ", "->", " ", 
+      RowBox[{"{", 
+       RowBox[{"k", ",", " ", "ell"}], "}"}]}], ",", " ", 
+     RowBox[{"ChangeDimension", " ", "->", " ", 
+      RowBox[{"4", " ", "-", " ", 
+       RowBox[{"2", " ", "epsFC"}]}]}], ",", "\n", "  ", 
+     RowBox[{"UndoChiralSplittings", " ", "->", " ", "True"}], ",", " ", 
+     RowBox[{"SMP", " ", "->", " ", "True"}]}], "]"}]}], 
+  ";"}], "\n", "amp2LFC"}], "Input",ExpressionUUID->"8419e283-5f4f-8a40-87b0-\
+81ea52d052c0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Massless one-loop convolution identity", "Subsubsection",ExpressionUUID->"dbff3920-c364-3141-8714-a50a83d84f16"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"conv", "[", 
+    RowBox[{"a_", ",", " ", "b_", ",", " ", "pp_", ",", " ", "dd_"}], "]"}], 
+   " ", ":=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"(", "pp", ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"dd", "/", "2"}], " ", "-", " ", "a", " ", "-", " ", "b"}], 
+       ")"}]}], "/", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{"4", " ", "Pi"}], ")"}], "^", 
+      RowBox[{"(", 
+       RowBox[{"dd", "/", "2"}], ")"}]}]}], " ", "*", "\n", "  ", 
+    RowBox[{"Gamma", "[", 
+     RowBox[{
+      RowBox[{"dd", "/", "2"}], " ", "-", " ", "a"}], "]"}], " ", 
+    RowBox[{"Gamma", "[", 
+     RowBox[{
+      RowBox[{"dd", "/", "2"}], " ", "-", " ", "b"}], "]"}], " ", 
+    RowBox[{
+     RowBox[{"Gamma", "[", 
+      RowBox[{"a", " ", "+", " ", "b", " ", "-", " ", 
+       RowBox[{"dd", "/", "2"}]}], "]"}], "/", "\n", "  ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"Gamma", "[", "a", "]"}], " ", 
+       RowBox[{"Gamma", "[", "b", "]"}], " ", 
+       RowBox[{"Gamma", "[", 
+        RowBox[{"dd", " ", "-", " ", "a", " ", "-", " ", "b"}], "]"}]}], 
+      ")"}]}]}]}], ";"}], "\n", 
+ RowBox[{"conv", "[", 
+  RowBox[{"1", ",", " ", "1", ",", " ", "p2", ",", " ", 
+   RowBox[{"4", " ", "-", " ", "eps"}]}], "]"}]}], "Input",ExpressionUUID->\
+"7787d799-04ed-4f4b-afdd-8c2cda906edb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Sunset expression and pole extraction", "Subsubsection",ExpressionUUID->"a70e70d1-fd0c-3c46-9fa5-7071d3595445"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"sunsetRatio", " ", "=", " ", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"Gamma", "[", 
+      RowBox[{"1", " ", "-", " ", 
+       RowBox[{"eps", "/", "2"}]}], "]"}], "^", "3"}], " ", 
+    RowBox[{
+     RowBox[{"Gamma", "[", 
+      RowBox[{"eps", " ", "-", " ", "1"}], "]"}], "/", 
+     RowBox[{"Gamma", "[", 
+      RowBox[{"3", " ", "-", " ", 
+       RowBox[{"3", " ", 
+        RowBox[{"eps", "/", "2"}]}]}], "]"}]}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"sunSet", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"mu", "^", 
+      RowBox[{"(", 
+       RowBox[{"2", " ", "eps"}], ")"}]}], " ", 
+     RowBox[{
+      RowBox[{"p2", "^", 
+       RowBox[{"(", 
+        RowBox[{"1", " ", "-", " ", "eps"}], ")"}]}], "/", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{"4", " ", "Pi"}], ")"}], "^", 
+       RowBox[{"(", 
+        RowBox[{"4", " ", "-", " ", "eps"}], ")"}]}]}], " ", 
+     "sunsetRatio"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"sunsetRatioSeries", " ", "=", " ", 
+    RowBox[{"Series", "[", 
+     RowBox[{"sunsetRatio", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"eps", ",", " ", "0", ",", " ", "0"}], "}"}]}], "]"}]}], 
+   ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"sunsetPole", " ", "=", " ", 
+    RowBox[{"SeriesCoefficient", "[", 
+     RowBox[{"sunSet", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"eps", ",", " ", "0", ",", " ", 
+        RowBox[{"-", "1"}]}], "}"}]}], "]"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"sunsetRatioSeries", ",", " ", "sunsetPole"}], "}"}]}]}], "Input",E\
+xpressionUUID->"173699ff-50eb-5845-b4fe-faa6a1896ba7"],
+
+Cell["\<\
+The coefficient expected for the pole is -p\.b2/[2(4\[Pi])^4] when \[Mu] \
+factors are expanded consistently. The finite term must be extracted from the \
+complete expression, including \[Mu]^(2\[CurlyEpsilon]), (p\.b2)^(-\
+\[CurlyEpsilon]), and (4\[Pi])^\[CurlyEpsilon]; do not identify the \
+gamma-ratio finite constant alone with the full finite part.\
+\>", "Text",ExpressionUUID->"9356ad68-05c8-de46-93aa-d54650bd2753"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Subdivergence discussion", "Subsubsection",ExpressionUUID->"6a2b00ce-a215-5947-8730-18dea8e31d21"],
+
+Cell["\<\
+The two-loop sunset has four-point one-loop subdivergent subgraphs. Their \
+local counterterm insertions are momentum independent at the level of the \
+four-point subgraph; they do not generate a new p\.b2/\[CurlyEpsilon] \
+contribution to the two-point wavefunction counterterm. However, massless DR \
+can set scaleless tadpole-like insertions to zero while hiding a UV/IR \
+cancellation. A complete proof should introduce an IR regulator or use an \
+R*/infrared-rearrangement argument and display the pole separation. This item \
+remains open until that bookkeeping is explicitly shown.\
+\>", "Text",ExpressionUUID->"723e088f-a3f0-a044-a467-bbc066d331fb"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.2 Obtain Z\[CurlyPhi], \[Gamma]\[CurlyPhi] and \[Eta]", "Subsection",ExpressionUUID->"962cfed4-ed43-5f4c-98c4-5e87d2498cfb"],
+
+Cell["\<\
+Question | Determine the sunset contribution to the inverse propagator \
+including its sign. Extract Z\[CurlyPhi], derive \[Gamma]\[CurlyPhi](g)=1/2 \
+\[Mu] d(log Z\[CurlyPhi])/d\[Mu] at fixed bare parameters, use \[Eta]=2\
+\[Gamma]\[CurlyPhi](g*) and check against the finite log(p\.b2/\[Mu]\.b2) \
+term. Explain why the one-loop g* suffices through \[CurlyEpsilon]\.b2.
+Derivation | With the Euclidean self-energy contribution -\[Lambda]\.b2H/6 \
+and H_pole=-p\.b2/[2(4\[Pi])^4\[CurlyEpsilon]], the inverse-propagator pole \
+is +g\.b2p\.b2/(12\[CurlyEpsilon]). Thus Z\[CurlyPhi]=1-g\.b2/(12\
+\[CurlyEpsilon])+O(g\.b3). At fixed bare parameters, \[Gamma]\[CurlyPhi](g)=g\
+\.b2/12+O(g\.b3), and with g*=\[CurlyEpsilon]/3+O(\[CurlyEpsilon]\.b2), \
+\[Eta]=2\[Gamma]\[CurlyPhi](g*)=\[CurlyEpsilon]\.b2/54+O(\[CurlyEpsilon]\.b3).
+Check | Verify the sign by combining the sunset prefactor and H pole. The \
+finite logarithm in p\.b2/\[Mu]\.b2 must reproduce the same anomalous \
+scaling. Since \[Gamma]\[CurlyPhi] starts at g\.b2, the O(\[CurlyEpsilon]) \
+correction to g* first affects \[Eta] at O(\[CurlyEpsilon]\.b3).
+Anchor IDs | A-22a field renormalization; A-22b anomalous dimension; Fields \
+Notes \[Section]\[Section]20\[Dash]21. Exact equation/page references open.
+Status | pole-based coefficient derived and AR-05 symbolic target checked; \
+explicit finite-log check and subdivergence-complete derivation open.\
+\>", "Text",ExpressionUUID->"d0bff58a-be29-974a-99c4-b9e7a60c83b2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"zPhi", " ", "=", " ", 
+   RowBox[{"1", " ", "-", " ", 
+    RowBox[{
+     RowBox[{"g", "^", "2"}], "/", 
+     RowBox[{"(", 
+      RowBox[{"12", " ", "eps"}], ")"}]}]}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"gammaPhi", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"g", "^", "2"}], "/", "12"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"etaExpr", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{"2", " ", "gammaPhi"}], ")"}], " ", "/.", " ", 
+     RowBox[{"g", " ", "->", " ", "gStar"}]}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"zPhi", ",", " ", "gammaPhi", ",", " ", "etaExpr", ",", " ", 
+    RowBox[{"Series", "[", 
+     RowBox[{"etaExpr", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"eps", ",", " ", "0", ",", " ", "3"}], "}"}]}], "]"}]}], 
+   "}"}]}]}], "Input",ExpressionUUID->"aa90277f-49c9-0047-b950-bcfdfc9292a1"],
+
+Cell["\<\
+The critical propagator scales as G(p) \[Proportional] \
+(p\.b2)^(-1+\[Eta]/2)=p^(-2+\[Eta]). The corresponding log-log scattering \
+slope is -2+\[Eta].\
+\>", "Text",ExpressionUUID->"a4de7b12-5eef-d048-b163-304edc51db1f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["2.3 Derive \[Delta] and compare with the critical isotherm", \
+"Subsection",ExpressionUUID->"949cdab9-4084-0743-a2d9-efc012134725"],
+
+Cell["\<\
+Question | Add a uniform source h through S_h=S-\[Integral]d^dx h\[CurlyPhi] \
+and define M=\:27e8\[CurlyPhi]\:27e9_h. Derive \[Delta] from scaling \
+dimensions, expand through \[CurlyEpsilon]\.b2 before setting \
+\[CurlyEpsilon]=1, map the order parameter and source to density and pressure \
+for water, and give the scattering slope. Compare with the \
+assignment-supplied water-fit value \[Delta]_water=4.324 (its experimental \
+source and fit window must be cited separately) and the 3D Ising bootstrap \
+input \[CapitalDelta]\[Sigma]=0.518148806(24).
+Derivation | \[CapitalDelta]\[CurlyPhi]=(d-2+\[Eta])/2 and \
+y_h=(d+2-\[Eta])/2. At criticality M\[Tilde]sgn(h)|h|^(\[CapitalDelta]\
+\[CurlyPhi]/y_h), so \
+\[Delta]=y_h/\[CapitalDelta]\[CurlyPhi]=(d+2-\[Eta])/(d-2+\[Eta]). With d=4-\
+\[CurlyEpsilon] and \[Eta]=\[CurlyEpsilon]\.b2/54, \
+\[Delta]=3+\[CurlyEpsilon]+25\[CurlyEpsilon]\.b2/54+O(\[CurlyEpsilon]\.b3). \
+The formal \[CurlyEpsilon]=1 estimate is \[Delta]\[TildeTilde]4.462963. For \
+the liquid-gas critical isotherm, M\[Proportional]\[Rho]-\[Rho]_c and h\
+\[Proportional]P-P_c, so (P-P_c)/P_c\[Tilde]A sgn(\[CapitalDelta]\[Rho])|\
+\[CapitalDelta]\[Rho]/\[Rho]_c|^\[Delta], with nonuniversal A.
+Check | Compare the epsilon-expansion estimate with water and bootstrap \
+benchmarks. From \[CapitalDelta]\[Sigma], compute \[Eta]_B=2\[CapitalDelta]\
+\[Sigma]-1 and \[Delta]_B=3/\[CapitalDelta]\[Sigma]-1. Scattering slope is \
+-2+\[Eta]. Label \[CurlyEpsilon]=1 as a truncated extrapolation, not a \
+controlled exact 3D result.
+Anchor IDs | A-23a scaling dimensions; A-23b equation of state; Fields Notes \
+\[Section]\[Section]20\[Dash]21. Exact equation/page references open. \
+Water/bootstrap are external comparison inputs from the project brief.
+Status | scaling derivation and \[CurlyEpsilon] expansion checked; numerical \
+comparison generated below; textbook page-level anchors open.\
+\>", "Text",ExpressionUUID->"d351bc71-d4ec-034b-89d9-25165f4b2fc1"],
+
+Cell[CellGroupData[{
+
+Cell["Scaling derivation and epsilon expansion", "Subsubsection",ExpressionUUID->"4ba8c9a5-f49f-274b-8cfd-ec3b0ff1d5d1"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"etaEps2", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"eps", "^", "2"}], "/", "54"}]}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"deltaExact", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+      "4", " ", "-", " ", "eps", " ", "+", " ", "2", " ", "-", " ", 
+       "etaEps2"}], ")"}], "/", 
+     RowBox[{"(", 
+      RowBox[{
+      "4", " ", "-", " ", "eps", " ", "-", " ", "2", " ", "+", " ", 
+       "etaEps2"}], ")"}]}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"deltaSeries", " ", "=", " ", 
+    RowBox[{"Normal", "[", 
+     RowBox[{"Series", "[", 
+      RowBox[{"deltaExact", ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"eps", ",", " ", "0", ",", " ", "2"}], "}"}]}], "]"}], 
+     "]"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"delta3D", " ", "=", " ", 
+    RowBox[{"N", "[", 
+     RowBox[{
+      RowBox[{"deltaSeries", " ", "/.", " ", 
+       RowBox[{"eps", " ", "->", " ", "1"}]}], ",", " ", "10"}], "]"}]}], 
+   ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"{", 
+   RowBox[{"deltaExact", ",", " ", "deltaSeries", ",", " ", "delta3D"}], 
+   "}"}]}]}], "Input",ExpressionUUID->"74631d8d-7d57-004e-9d03-b4aa33519542"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Water equation of state and scattering", "Subsubsection",ExpressionUUID->"ce450978-1520-1841-ae96-b32664756409"],
+
+Cell["\<\
+Let \[CapitalDelta]\[Rho]=\[Rho]-\[Rho]_c. The critical-isotherm scaling form \
+is (P-P_c)/P_c \[Tilde] A Sign[\[CapitalDelta]\[Rho]] Abs[\[CapitalDelta]\
+\[Rho]/\[Rho]_c]^\[Delta]. The amplitude A is nonuniversal and depends on \
+metric factors. In the critical scattering window \[Xi]^-1\[LessLess]q\
+\[LessLess]a^-1, S(q)\[Proportional]q^(-2+\[Eta]), so the log-log slope is \
+-2+\[Eta].\
+\>", "Text",ExpressionUUID->"d0ddc080-2a7a-db46-94d5-5b232edf47a4"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"deltaWater", " ", "=", " ", "4.324"}], ";"}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"deltaSigma", " ", "=", " ", "0.518148806"}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"etaBootstrap", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"2", " ", "deltaSigma"}], " ", "-", " ", "1"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"deltaBootstrap", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"3", "/", "deltaSigma"}], " ", "-", " ", "1"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"eta3DTruncated", " ", "=", " ", 
+    RowBox[{"1", "/", "54"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"scatteringSlope3D", " ", "=", " ", 
+    RowBox[{
+     RowBox[{"-", "2"}], " ", "+", " ", "eta3DTruncated"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{
+   RowBox[{"comparison", " ", "=", " ", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Delta] (epsilon expansion, \[CurlyEpsilon]=1 truncated)\
+\>\"", ",", " ", "delta3D"}], "}"}], ",", "\n", "  ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Delta] (water fit; assignment input)\>\"", ",", " ", 
+        "deltaWater"}], "}"}], ",", "\n", "  ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Delta] (3D Ising bootstrap from \
+\[CapitalDelta]\[Sigma])\>\"", ",", " ", 
+        RowBox[{"N", "[", 
+         RowBox[{"deltaBootstrap", ",", " ", "10"}], "]"}]}], "}"}], ",", 
+      "\n", "  ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Eta] (epsilon expansion, \[CurlyEpsilon]=1 truncated)\>\
+\"", ",", " ", 
+        RowBox[{"N", "[", 
+         RowBox[{"eta3DTruncated", ",", " ", "10"}], "]"}]}], "}"}], ",", 
+      "\n", "  ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<\[Eta] (3D Ising bootstrap from \
+\[CapitalDelta]\[Sigma])\>\"", ",", " ", 
+        RowBox[{"N", "[", 
+         RowBox[{"etaBootstrap", ",", " ", "10"}], "]"}]}], "}"}], ",", "\n", 
+      "  ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Scattering slope -2+\[Eta] (epsilon expansion)\>\"", ",", 
+        " ", 
+        RowBox[{"N", "[", 
+         RowBox[{"scatteringSlope3D", ",", " ", "10"}], "]"}]}], "}"}]}], 
+     "}"}]}], ";"}]}], "\n", 
+ RowBox[{" ", 
+  RowBox[{"Grid", "[", 
+   RowBox[{
+    RowBox[{"Prepend", "[", 
+     RowBox[{"comparison", ",", " ", 
+      RowBox[{"{", 
+       RowBox[{"\"\<Quantity\>\"", ",", " ", "\"\<Value\>\""}], "}"}]}], 
+     "]"}], ",", " ", 
+    RowBox[{"Frame", " ", "->", " ", "All"}]}], "]"}]}]}], "Input",ExpressionU\
+UID->"d7da6331-a761-7542-95d1-9ef4710b0684"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "Section",
+ CellChangeTimes->{
+  4.004317636707075*^9},ExpressionUUID->"1146b6a3-5610-1048-a2fb-\
+e4182fbf890e"],
+
+Cell["", "Text",
+ CellChangeTimes->{
+  4.0043176348009624`*^9},ExpressionUUID->"e653482e-960b-5a4c-bec2-\
+f93c08c9b21b"],
+
+Cell[CellGroupData[{
+
+Cell["", "Subsection",
+ CellChangeTimes->{
+  4.004317628972456*^9},ExpressionUUID->"2ac3cdf0-80e9-9c4c-83c6-\
+642844e4217b"],
+
+Cell["", "Text",
+ CellChangeTimes->{
+  4.004317626568039*^9},ExpressionUUID->"60435f64-12da-c844-852e-\
+ec19ae1450c9"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "Section",
+ CellChangeTimes->{
+  4.0043176174705505`*^9},ExpressionUUID->"24f2d808-0adf-8443-a789-\
+e6397a2f1867"],
+
+Cell["", "Text",
+ CellChangeTimes->{{4.0043176143733635`*^9, 
+  4.0043176239466057`*^9}},ExpressionUUID->"3498f0f9-7ab3-8942-9851-\
+ab89a4084a76"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "Section",
+ CellChangeTimes->{{4.0043176067754726`*^9, 
+  4.004317622227642*^9}},ExpressionUUID->"ea8e962e-191c-404f-8f4d-\
+a8c55c97d4ef"],
+
+Cell["", "Text",
+ CellChangeTimes->{{4.004317604967182*^9, 
+  4.004317609289034*^9}},ExpressionUUID->"f6227816-01f2-444b-a85d-\
+eb435bd7b32e"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Analytic reference outputs (not represented as Mathematica kernel output)\
+\>", "Subsection",ExpressionUUID->"7d8312d6-441e-aa42-bab5-79dcf8784b7e"],
+
+Cell["\<\
+For \[CapitalLambda] >> m, T(\[CapitalLambda]) = 1/(16\[Pi]\.b2)[\
+\[CapitalLambda]\.b2 - m\.b2 ln(\[CapitalLambda]\.b2/m\.b2) - m\:2074/\
+\[CapitalLambda]\.b2 + O(\[CapitalLambda]\:207b\:2074)] and B(0;\
+\[CapitalLambda]) = 1/(16\[Pi]\.b2)[ln(\[CapitalLambda]\.b2/m\.b2) - 1 + 2m\
+\.b2/\[CapitalLambda]\.b2 + O(\[CapitalLambda]\:207b\:2074)]. In DR, T = \
+m\.b2/(16\[Pi]\.b2)[-2/\[CurlyEpsilon] + \[Gamma]_E - 1 - \
+ln(4\[Pi]\[Mu]\.b2/m\.b2)] + O(\[CurlyEpsilon]), while B(0) = \
+1/(16\[Pi]\.b2)[2/\[CurlyEpsilon] - \[Gamma]_E + ln(4\[Pi]\[Mu]\.b2/m\.b2)] + \
+O(\[CurlyEpsilon]). The identity B(0) = -\[PartialD]T/\[PartialD]m\.b2 holds \
+in both schemes.\
+\>", "Text",ExpressionUUID->"fa1cef35-5b78-8342-bacb-df07fa960fb2"],
+
+Cell["\<\
+The finite bubble difference is B(P)-B(0) = -(1/16\[Pi]\.b2)\[Integral]\:2080\
+\.b9 dx ln[1+x(1-x)P\.b2/m\.b2], and its derivative at P\.b2=0 is -1/(96\[Pi]\
+\.b2m\.b2). The sunset gamma ratio expands as \
+-1/(2\[CurlyEpsilon])+\[Gamma]_E/2-13/8+O(\[CurlyEpsilon]). Including the \
+full prefactor, its pole is -p\.b2/[2(4\[Pi])\:2074\[CurlyEpsilon]]. The \
+derived critical expansion is \
+\[Delta]=3+\[CurlyEpsilon]+25\[CurlyEpsilon]\.b2/54+O(\[CurlyEpsilon]\.b3), \
+hence the \[CurlyEpsilon]=1 truncated estimate is 4.46296296296. From \
+\[CapitalDelta]\[Sigma]=0.518148806, \[Eta]=0.036297612 and \
+\[Delta]=4.78984254187.\
+\>", "Text",ExpressionUUID->"c6382780-d044-6a4f-8588-6ae8232ab263"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "Section",
+ CellChangeTimes->{{4.0043177891685753`*^9, 
+  4.0043177903461285`*^9}},ExpressionUUID->"29612543-a9a2-2f4a-ab5f-\
+a86d72fc1ad0"],
+
+Cell["", "Text",
+ CellChangeTimes->{{4.0043177864747944`*^9, 
+  4.0043177967276134`*^9}},ExpressionUUID->"fcd4583e-ca1b-1640-a5c1-\
+6a6519b4c27c"],
+
+Cell["\<\
+Important provenance warning: \[Delta]_water=4.324 is currently an input \
+supplied in the project brief, not a value independently authenticated by the \
+sources above. The 3D Ising universality-class benchmark from the bootstrap \
+data gives \[Delta]\[TildeTilde]4.78984. If 4.324 comes from a finite-range \
+water equation-of-state fit, it must be labelled as that fit's effective \
+exponent and accompanied by its original reference, fitting interval, and \
+uncertainty; it must not be presented as the asymptotic universal exponent \
+without evidence.\
+\>", "Text",ExpressionUUID->"f204d68f-700b-e043-8974-396b91bc4d0a"],
+
+Cell[CellGroupData[{
+
+Cell["", "Subsection",
+ CellChangeTimes->{
+  4.004317578620878*^9},ExpressionUUID->"ea3b67b0-d44c-0c46-8fe4-\
+2c1dfdff9f4f"],
+
+Cell["", "Text",
+ CellChangeTimes->{
+  4.004317576799717*^9},ExpressionUUID->"032debee-6167-0f43-af02-\
+6c57a8efe09a"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Textbook Anchor Map \[LongDash] FieldsI-Notes (Spring 2025)", "Section",ExpressionUUID->"204e26cc-e2b4-d642-b1a7-236db9fa8db6"],
+
+Cell["\<\
+The companion file anchor_equation_map.md contains the full \
+equation-by-equation map for Sections 1.1\[Dash]2.3. The following anchor IDs \
+are the stable identifiers used throughout the project. References are to \
+printed page numbers in FieldsI-Notes; unnumbered displayed relations are \
+explicitly labelled unnumbered.\
+\>", "Text",ExpressionUUID->"48cb6d6a-c55a-1140-855d-61ef205f47d6"],
+
+Cell["\<\
+1.1 Diagram generation: A-11-01 (Eq. 11.1, p. 93); A-11-02 and A-11-03 \
+(momentum-space propagator and quartic vertex, unnumbered, pp. 93\[Dash]94); \
+A-11-04 (Gamma(2)=1/W, unnumbered, p. 94); A-11-05 (tadpole and factor 1/2, \
+unnumbered, pp. 95\[Dash]96); A-12-01 (four-point bubbles and channel \
+permutations, unnumbered, pp. 102\[Dash]104). FeynArts output is a \
+software-generated check, not a textbook equation.\
+\>", "Text",ExpressionUUID->"53c3a23c-1d60-fa4e-a9c9-58d56812b3a4"],
+
+Cell["\<\
+1.2 Regularization: A-11-07 (tadpole integral, unnumbered, p. 95); A-12-02 \
+(bubble integral, unnumbered, p. 103); A-13-01 (dimensional continuation, \
+Section 13, pp. 113\[Dash]114); A-13-02 through A-13-05 (Eqs. \
+13.4\[Dash]13.8, pp. 114\[Dash]115); A-13-06 (cutoff-pole comparison, \
+discussion following Eq. 13.6, p. 115). Closed cutoff expressions and \
+finite-momentum parameter integrals are project derivations from these \
+starting integrals.\
+\>", "Text",ExpressionUUID->"82f45a22-020b-e245-94c2-7ce9535620d9"],
+
+Cell["\<\
+1.3 Counterterms and schemes: A-12-03 and A-12-04 (bare/renormalized action \
+and counterterm identities, unnumbered, pp. 106\[Dash]108); A-13-07 (Eqs. \
+13.9\[Dash]13.10, p. 117); A-13-08 (Eq. 13.11, p. 118); A-13-09 (Eqs. 13.12\
+\[Dash]13.13, p. 119); A-15-01 (MOM conditions Eqs. 15.3\[Dash]15.5, pp. 148\
+\[Dash]150); A-15-02 (scheme-coordinate relation, Eq. 15.1, p. 146).\
+\>", "Text",ExpressionUUID->"9daafd6c-b67a-0a4e-a77e-28789bcc54f5"],
+
+Cell["\<\
+1.4 Beta function and fixed point: A-15-03 through A-15-07 (Eqs. \
+15.15\[Dash]15.19, pp. 155\[Dash]156); A-21-01 (Eqs. 21.4\[Dash]21.7, pp. 217\
+\[Dash]219); A-21-02 (Wilson\[Dash]Fisher fixed point, Eq. 21.9, p. 220); \
+A-21-03 (flow convention, Eqs. 21.10\[Dash]21.13, pp. 220\[Dash]221). Convert \
+lambda to g=lambda/(16 Pi^2) explicitly.\
+\>", "Text",ExpressionUUID->"5bc1ea4d-d149-1a45-98a1-a865844e7e7b"],
+
+Cell["\<\
+2.1 Sunset: A-12-05 and A-12-06 (sunset topology and symmetry factor 1/3!, \
+unnumbered, p. 105); A-12-07 (momentum-dependent subtraction, unnumbered, p. \
+106); A-13-10 (DR Gamma-function integral machinery, Eqs. 13.4\[Dash]13.8, \
+pp. 114\[Dash]115). The complete massless two-loop convolution is a project \
+derivation, not a verbatim FieldsI-Notes equation.\
+\>", "Text",ExpressionUUID->"25aa8dc1-4123-df4d-b6db-a1f86514e3cf"],
+
+Cell["\<\
+2.2 Field renormalization: A-12-08 and A-12-09 (p^2 divergence and \
+phi=Z^(-1/2) phi_0, unnumbered, pp. 106\[Dash]108); A-15-08 (Eq. 15.16, p. \
+155); A-15-09 (Eq. 15.18, p. 156); A-21-04 (fixed-point field dimension, \
+discussion after Eq. 21.14, p. 223).\
+\>", "Text",ExpressionUUID->"aa1c6aee-2bcf-a144-91ec-ccdfd3965464"],
+
+Cell["\<\
+2.3 Critical isotherm: A-20-01 (critical two-point scaling, unnumbered, p. \
+211); A-20-02 (Eqs. 20.2\[Dash]20.5, pp. 211\[Dash]212); A-20-03 \
+(delta=(d-D_phi)/D_phi, unnumbered, p. 213); A-20-04 (liquid-gas / Ising \
+universality discussion, p. 214); A-21-05 (D_phi at Wilson\[Dash]Fisher fixed \
+point, p. 223). A-EXT-01 through A-EXT-04 identify water, bootstrap, \
+pressure-density mapping, and scattering as external inputs or project-level \
+physical identifications, not textbook-derived numerical data.\
+\>", "Text",ExpressionUUID->"89aa725f-b5b6-3e41-8cc1-d46b9486e280"],
+
+Cell["\<\
+Anchor convention warning: FieldsI-Notes uses epsilon=4-d and writes the \
+Wilsonian flow as d lambda/dl=-beta(lambda). The project uses g=lambda/(16 \
+Pi^2), so epsilon=2 epsilon_FC when translating FeynCalc's D=4-2 epsilon_FC. \
+Preserve the book's field convention phi=Z^(-1/2) phi_0. See the companion \
+anchor_equation_map.md for the full mapping table and detailed qualifications.\
+\>", "Text",ExpressionUUID->"1224ad76-4c86-ee46-82eb-4cc65d966901"],
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{
+  4.004317816198164*^9},ExpressionUUID->"87acc2d2-734f-ef44-a6eb-\
+2820817c0f98"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1536, 801.5999999999999},
+WindowMargins->{{
+  Automatic, -5.399999999999864}, {-5.399999999999977, Automatic}},
+WindowTitle->"QFT Midterm Project \[LongDash] Erfan Najafian",
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (July 2, 2026)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"de477417-673d-6141-a140-4ddc2bbd661b"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[1537, 36, 194, 3, 96, "Title",ExpressionUUID->"38c3a21e-bbb6-d84c-bc2d-b293e4440488"],
+Cell[1734, 41, 203, 3, 52, "Subtitle",ExpressionUUID->"5d6d309c-b2b7-814f-943b-b41e4385b02a"],
+Cell[1940, 46, 251, 8, 55, "Text",ExpressionUUID->"23d7cb8f-d467-5246-a99d-69dca3164cda"],
+Cell[CellGroupData[{
+Cell[2216, 58, 149, 3, 66, "Section",ExpressionUUID->"c519c069-7c9d-9143-8550-87149f752a58"],
+Cell[2368, 63, 120, 3, 33, "Text",ExpressionUUID->"f1fa081b-ffca-5749-864d-5d078397047a"],
+Cell[2491, 68, 174, 4, 33, "Text",ExpressionUUID->"f7d73e52-ff3c-724d-965c-3a51184dc366"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2702, 77, 196, 3, 66, "Section",ExpressionUUID->"5fd7417e-0bdc-1648-b396-f747aca4fcff"],
+Cell[CellGroupData[{
+Cell[2923, 84, 120, 0, 53, "Subsection",ExpressionUUID->"e9dffefd-286a-8f43-811d-cf844e0b095e"],
+Cell[3046, 86, 1099, 18, 121, "Text",ExpressionUUID->"be079595-c887-b34e-a84c-edc4d7a9e04e"],
+Cell[CellGroupData[{
+Cell[4170, 108, 141, 1, 43, "Subsubsection",ExpressionUUID->"8255a39e-0a81-d940-ab11-cedc36a7078b"],
+Cell[4314, 111, 175, 3, 33, "Text",ExpressionUUID->"301bf285-5610-8b4c-b8ae-4007a5044835"],
+Cell[4492, 116, 1327, 35, 199, "Input",ExpressionUUID->"f3b92ec7-4fd9-b646-b4d3-54a088a01807"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[5856, 156, 140, 1, 43, "Subsubsection",ExpressionUUID->"9d40d9b6-b461-cf4d-b51c-e6275ebc8464"],
+Cell[5999, 159, 186, 3, 33, "Text",ExpressionUUID->"d9fa85fa-775b-e94f-9049-5a4e72caa141"],
+Cell[6188, 164, 1424, 36, 142, "Input",ExpressionUUID->"ed9a2282-9ab4-5d44-9c08-250c9cd11fe4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7649, 205, 119, 0, 43, "Subsubsection",ExpressionUUID->"4b58b612-15b9-084c-a81f-ca84f2c1b570"],
+Cell[7771, 207, 1738, 45, 142, "Input",ExpressionUUID->"1956880e-6640-b242-ba43-eafeae5900bd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[9546, 257, 120, 0, 43, "Subsubsection",ExpressionUUID->"95730fc0-6244-204a-8806-fc0dc1ebcd59"],
+Cell[9669, 259, 596, 8, 77, "Text",ExpressionUUID->"aa408de3-ca54-a84c-8404-863ef6ed60f1"],
+Cell[10268, 269, 2199, 48, 218, "Input",ExpressionUUID->"3578c3f1-0299-5646-b812-1919a955135b"],
+Cell[12470, 319, 548, 8, 77, "Text",ExpressionUUID->"098c432a-58b3-834a-a6b1-d0a178202c47"],
+Cell[13021, 329, 767, 16, 104, "Input",ExpressionUUID->"216f1f4e-4802-5e43-a830-1c2273eac083"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[13825, 350, 110, 0, 43, "Subsubsection",ExpressionUUID->"25f18535-0d1f-6b49-ba7a-76598f0235a3"],
+Cell[13938, 352, 1044, 27, 104, "Input",ExpressionUUID->"ce592fec-6d78-904c-be52-a8001622f403"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[15031, 385, 112, 0, 53, "Subsection",ExpressionUUID->"150b7e4f-9252-6840-9aa4-93cba08732f2"],
+Cell[15146, 387, 1088, 16, 143, "Text",ExpressionUUID->"2b42b23c-7b90-b140-866d-3c1dc40412ca"],
+Cell[CellGroupData[{
+Cell[16259, 407, 148, 1, 43, "Subsubsection",ExpressionUUID->"a16b3203-d3c7-b847-9416-e6d8780b9e2a"],
+Cell[16410, 410, 1691, 54, 123, "Input",ExpressionUUID->"4dac0bc0-eb1b-b84a-a082-63865906b727"],
+Cell[18104, 466, 423, 6, 33, "Text",ExpressionUUID->"c7c973df-a46f-1d4a-b6ff-cea6d8984c26"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[18564, 477, 169, 3, 43, "Subsubsection",ExpressionUUID->"00b6e804-1060-a648-97e7-2c542d4bc457"],
+Cell[18736, 482, 1743, 57, 123, "Input",ExpressionUUID->"f6656a94-a8bd-7d44-9ab6-062ce11f6d54"],
+Cell[20482, 541, 476, 7, 55, "Text",ExpressionUUID->"353c65cc-c9a7-f843-9611-b110ce19c3dd"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[20995, 553, 113, 0, 43, "Subsubsection",ExpressionUUID->"5c8bb75e-6427-f542-bd43-866073d952d4"],
+Cell[21111, 555, 654, 17, 66, "Input",ExpressionUUID->"06ccba4f-1a68-5b48-8659-7db86a43925a"],
+Cell[21768, 574, 175, 3, 33, "Text",ExpressionUUID->"90b2c1df-4e9e-1d47-b87e-a9cbb7f6d93c"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[21992, 583, 120, 0, 53, "Subsection",ExpressionUUID->"c38687b7-ac41-3d49-a293-6ed8f96848cf"],
+Cell[22115, 585, 1436, 21, 164, "Text",ExpressionUUID->"57347e36-6db2-3d46-9f67-0fd1dd9a9979"],
+Cell[23554, 608, 603, 18, 85, "Input",ExpressionUUID->"820f97fe-9b74-b74a-8091-6728f965c8d6"],
+Cell[CellGroupData[{
+Cell[24182, 630, 110, 0, 43, "Subsubsection",ExpressionUUID->"34ec93f3-219b-4049-98f6-c4739700ba8b"],
+Cell[24295, 632, 1358, 38, 66, "Input",ExpressionUUID->"5be8f3ca-1fdb-df4d-b428-3be6df984f7c"],
+Cell[25656, 672, 360, 5, 55, "Text",ExpressionUUID->"bf7197ef-4027-8d41-9cc2-5e6570c76253"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[26053, 682, 107, 0, 43, "Subsubsection",ExpressionUUID->"bba345e3-a216-ef43-a8aa-80cee9178950"],
+Cell[26163, 684, 1275, 34, 104, "Input",ExpressionUUID->"49d47eec-0e87-c740-979a-286c85f224ef"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27487, 724, 121, 0, 53, "Subsection",ExpressionUUID->"6becb222-4f10-a840-bfdd-106430025474"],
+Cell[27611, 726, 1198, 19, 164, "Text",ExpressionUUID->"adab8108-877d-2648-917c-59eb9fa437d1"],
+Cell[28812, 747, 751, 22, 66, "Input",ExpressionUUID->"f1a60057-9f49-c142-bae1-9f41ad90055c"],
+Cell[29566, 771, 319, 5, 33, "Text",ExpressionUUID->"d0925f1f-dfca-0e40-bb58-fa6b378f81a3"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[29934, 782, 124, 0, 66, "Section",ExpressionUUID->"1360e848-5256-924e-a1af-c7510451aebe"],
+Cell[CellGroupData[{
+Cell[30083, 786, 122, 0, 53, "Subsection",ExpressionUUID->"79fc8aad-a5fa-8b4f-9d96-10d588ccc5ba"],
+Cell[30208, 788, 1784, 26, 186, "Text",ExpressionUUID->"4605deab-0232-c944-9ea1-f3bd5cac5084"],
+Cell[CellGroupData[{
+Cell[32017, 818, 132, 0, 43, "Subsubsection",ExpressionUUID->"ae640021-5d3f-eb41-998c-38466aa5c0be"],
+Cell[32152, 820, 972, 25, 104, "Input",ExpressionUUID->"3c727dc1-2a7e-5847-80cb-c8a7205fea9f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33161, 850, 122, 0, 43, "Subsubsection",ExpressionUUID->"8a9737e1-2e65-7045-8676-4a039cc2f722"],
+Cell[33286, 852, 817, 18, 104, "Input",ExpressionUUID->"8419e283-5f4f-8a40-87b0-81ea52d052c0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[34140, 875, 118, 0, 43, "Subsubsection",ExpressionUUID->"dbff3920-c364-3141-8714-a50a83d84f16"],
+Cell[34261, 877, 1371, 39, 85, "Input",ExpressionUUID->"7787d799-04ed-4f4b-afdd-8c2cda906edb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[35669, 921, 117, 0, 43, "Subsubsection",ExpressionUUID->"a70e70d1-fd0c-3c46-9fa5-7071d3595445"],
+Cell[35789, 923, 1654, 51, 123, "Input",ExpressionUUID->"173699ff-50eb-5845-b4fe-faa6a1896ba7"],
+Cell[37446, 976, 433, 6, 55, "Text",ExpressionUUID->"9356ad68-05c8-de46-93aa-d54650bd2753"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[37916, 987, 104, 0, 43, "Subsubsection",ExpressionUUID->"6a2b00ce-a215-5947-8730-18dea8e31d21"],
+Cell[38023, 989, 667, 9, 77, "Text",ExpressionUUID->"723e088f-a3f0-a044-a467-bbc066d331fb"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[38739, 1004, 132, 0, 53, "Subsection",ExpressionUUID->"962cfed4-ed43-5f4c-98c4-5e87d2498cfb"],
+Cell[38874, 1006, 1495, 20, 164, "Text",ExpressionUUID->"d0bff58a-be29-974a-99c4-b9e7a60c83b2"],
+Cell[40372, 1028, 919, 27, 85, "Input",ExpressionUUID->"aa90277f-49c9-0047-b950-bcfdfc9292a1"],
+Cell[41294, 1057, 231, 4, 33, "Text",ExpressionUUID->"a4de7b12-5eef-d048-b163-304edc51db1f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41562, 1066, 137, 1, 53, "Subsection",ExpressionUUID->"949cdab9-4084-0743-a2d9-efc012134725"],
+Cell[41702, 1069, 1980, 29, 186, "Text",ExpressionUUID->"d351bc71-d4ec-034b-89d9-25165f4b2fc1"],
+Cell[CellGroupData[{
+Cell[43707, 1102, 120, 0, 43, "Subsubsection",ExpressionUUID->"4ba8c9a5-f49f-274b-8cfd-ec3b0ff1d5d1"],
+Cell[43830, 1104, 1210, 37, 123, "Input",ExpressionUUID->"74631d8d-7d57-004e-9d03-b4aa33519542"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[45077, 1146, 118, 0, 43, "Subsubsection",ExpressionUUID->"ce450978-1520-1841-ae96-b32664756409"],
+Cell[45198, 1148, 469, 7, 55, "Text",ExpressionUUID->"d0ddc080-2a7a-db46-94d5-5b232edf47a4"],
+Cell[45670, 1157, 2508, 69, 256, "Input",ExpressionUUID->"d7da6331-a761-7542-95d1-9ef4710b0684"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48239, 1233, 121, 3, 66, "Section",ExpressionUUID->"1146b6a3-5610-1048-a2fb-e4182fbf890e"],
+Cell[48363, 1238, 120, 3, 33, "Text",ExpressionUUID->"e653482e-960b-5a4c-bec2-f93c08c9b21b"],
+Cell[CellGroupData[{
+Cell[48508, 1245, 124, 3, 53, "Subsection",ExpressionUUID->"2ac3cdf0-80e9-9c4c-83c6-642844e4217b"],
+Cell[48635, 1250, 118, 3, 33, "Text",ExpressionUUID->"60435f64-12da-c844-852e-ec19ae1450c9"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48802, 1259, 123, 3, 66, "Section",ExpressionUUID->"24f2d808-0adf-8443-a789-e6397a2f1867"],
+Cell[48928, 1264, 146, 3, 33, "Text",ExpressionUUID->"3498f0f9-7ab3-8942-9851-ab89a4084a76"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[49111, 1272, 147, 3, 66, "Section",ExpressionUUID->"ea8e962e-191c-404f-8f4d-a8c55c97d4ef"],
+Cell[49261, 1277, 142, 3, 33, "Text",ExpressionUUID->"f6227816-01f2-444b-a85d-eb435bd7b32e"],
+Cell[CellGroupData[{
+Cell[49428, 1284, 158, 2, 53, "Subsection",ExpressionUUID->"7d8312d6-441e-aa42-bab5-79dcf8784b7e"],
+Cell[49589, 1288, 735, 11, 55, "Text",ExpressionUUID->"fa1cef35-5b78-8342-bacb-df07fa960fb2"],
+Cell[50327, 1301, 703, 11, 55, "Text",ExpressionUUID->"c6382780-d044-6a4f-8588-6ae8232ab263"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[51079, 1318, 149, 3, 66, "Section",ExpressionUUID->"29612543-a9a2-2f4a-ab5f-a86d72fc1ad0"],
+Cell[51231, 1323, 146, 3, 33, "Text",ExpressionUUID->"fcd4583e-ca1b-1640-a5c1-6a6519b4c27c"],
+Cell[51380, 1328, 635, 9, 77, "Text",ExpressionUUID->"f204d68f-700b-e043-8974-396b91bc4d0a"],
+Cell[CellGroupData[{
+Cell[52040, 1341, 124, 3, 53, "Subsection",ExpressionUUID->"ea3b67b0-d44c-0c46-8fe4-2c1dfdff9f4f"],
+Cell[52167, 1346, 118, 3, 33, "Text",ExpressionUUID->"032debee-6167-0f43-af02-6c57a8efe09a"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52334, 1355, 133, 0, 66, "Section",ExpressionUUID->"204e26cc-e2b4-d642-b1a7-236db9fa8db6"],
+Cell[52470, 1357, 404, 6, 55, "Text",ExpressionUUID->"48cb6d6a-c55a-1140-855d-61ef205f47d6"],
+Cell[52877, 1365, 500, 7, 55, "Text",ExpressionUUID->"53c3a23c-1d60-fa4e-a9c9-58d56812b3a4"],
+Cell[53380, 1374, 532, 8, 55, "Text",ExpressionUUID->"82f45a22-020b-e245-94c2-7ce9535620d9"],
+Cell[53915, 1384, 456, 6, 55, "Text",ExpressionUUID->"9daafd6c-b67a-0a4e-a77e-28789bcc54f5"],
+Cell[54374, 1392, 421, 6, 55, "Text",ExpressionUUID->"5bc1ea4d-d149-1a45-98a1-a865844e7e7b"],
+Cell[54798, 1400, 440, 6, 55, "Text",ExpressionUUID->"25aa8dc1-4123-df4d-b6db-a1f86514e3cf"],
+Cell[55241, 1408, 336, 5, 55, "Text",ExpressionUUID->"aa1c6aee-2bcf-a144-91ec-ccdfd3965464"],
+Cell[55580, 1415, 590, 8, 77, "Text",ExpressionUUID->"89aa725f-b5b6-3e41-8cc1-d46b9486e280"],
+Cell[56173, 1425, 465, 6, 55, "Text",ExpressionUUID->"1224ad76-4c86-ee46-82eb-4cc65d966901"],
+Cell[56641, 1433, 128, 3, 28, "Input",ExpressionUUID->"87acc2d2-734f-ef44-a6eb-2820817c0f98"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
